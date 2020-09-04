@@ -1,0 +1,61 @@
+http:
+  port: 8080
+admin:
+  port: 9876
+  host: localhost
+apiEndpoints:
+  auth:
+    host: localhost
+    path: '/auth*'
+  projects:
+    host: localhost
+    path: '/projects*'
+serviceEndpoints:
+  auth:
+    url: 'http://localhost:3000'
+  projects:
+    url: 'http://localhost:3001'
+policies:
+  - cors
+  - log
+  - proxy
+  - jwt
+  - request-transformer
+pipelines:
+  authPipeline:
+    apiEndpoints:
+      - auth
+    policies:
+      - cors:
+        - action:
+            origin: true
+      - log: 
+          action:
+            message: 'auth ${req.method}'
+      - proxy:
+          action:
+            serviceEndpoint: auth
+            changeOrigin: true
+  projectsPipeline:
+    apiEndpoints:
+      - projects
+    policies:
+      - cors:
+        - action:
+            origin: true
+      - log: 
+          action:
+            message: 'projects ${req.method}'
+      - jwt:
+          action:
+            secretOrPublicKey: 'test_task'
+            checkCredentialExistence: false
+      - request-transformer:
+          action:
+            body: 
+              add:
+                userId: req.user.id
+      - proxy:
+          action:
+            serviceEndpoint: projects
+            changeOrigin: true
