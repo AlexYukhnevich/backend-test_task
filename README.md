@@ -12,7 +12,10 @@ Microservices are located in the folder */microservices*.
 There are two microservices: */auth*, */projects*
 
 To start the applications correctly, you must enter the following commands:
-```yarn dev ```
+
+ */auth* -> `yarn install` -> `yarn dev` 
+ 
+ */projects* -> `yarn install` -> `yarn dev`
 
 You will find a more detailed description in README.md of these microservices.
 
