@@ -18,7 +18,9 @@ You will find a more detailed description in README.md of these microservices.
 
 I have used **Typescript** however much has not been done yet (*interfaces*, *types*, etc.). 
 
-This package is used as a gateway. Requests are redirected to one of the microservices. There 
+This package is used as a gateway. Requests are redirected to one of the microservices.
 There are three applications to run.
 
-I didn't have time to write tests, deploy the project. Therefore, you can only check locally. The plans were to use **Docker** with  **docker-compose.yml** as well as **nginx** setup. However, there was not enough time to implement the planned.
+I didn't have time to write tests, deploy the project. 
+Therefore, you can only check locally. The plans were to use **Docker** with  **docker-compose.yml** as well as **nginx** setup. 
+However, there was not enough time to implement the planned.
