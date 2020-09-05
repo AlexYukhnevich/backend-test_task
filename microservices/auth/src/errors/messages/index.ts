@@ -16,6 +16,11 @@ const signupErrors = {
   sso: "Something went wrong while logging in. Please try again",
 };
 
+const signInErrors = {
+  invalidEmail: 'Invalid email',
+  notConfirmed: 'Please confirm via email',
+  invalidPassword: 'Invalid password',
+}
 
 const mailErrors = {
   invalidData: "Invalid email",
@@ -42,4 +47,5 @@ export {
   tokenErrors,
   jwtErrors,
   activateErrors,
+  signInErrors,
 };

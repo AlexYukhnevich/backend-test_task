@@ -8,10 +8,13 @@ This is an entry point into microservices. To run the application, you must ente
 Also need to start all microservices to work correctly.
 Microservices are located in the folder */microservices*.
 
+
 There are two microservices: */auth*, */projects*
 
 To start the applications correctly, you must enter the following commands:
 ```yarn dev ```
+
+You will find a more detailed description in README.md of these microservices.
 
 I have used **Typescript** however much has not been done yet (*interfaces*, *types*, etc.). 
 

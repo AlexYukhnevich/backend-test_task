@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node ./build/server.js NODE_ENV=development",
+    "start": "tsc node ./build/server.js NODE_ENV=development",
     "dev": "cross-env PORT=3001 NODE_ENV=development tsc-watch --onSuccess \"node ./build/server.js\"",
     "build": "tsc"
   },

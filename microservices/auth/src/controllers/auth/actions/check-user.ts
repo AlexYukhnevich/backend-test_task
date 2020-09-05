@@ -1,6 +1,6 @@
 import { compareEntities } from '../../../helpers';
 import { BadRequestError } from '../../../errors/classes';
-import { signupErrors, userErrors } from '../../../errors/messages';
+import { signInErrors } from '../../../errors/messages';
 import { getUserByEmail } from '../../user/actions';
 
 interface SignIn {
@@ -9,17 +9,21 @@ interface SignIn {
 }
 
 export const checkUser = async (data: SignIn)  => {
-    const { email, password } = data;
-    const existingUser = await getUserByEmail(email);
-    // @ts-ignore
-    if (!existingUser || !existingUser.confirmed) {
-      throw new BadRequestError(userErrors.invalidData);
-    }
-    // @ts-ignore
-    const isValidPassword = await compareEntities(password, existingUser.password);
+  const { email, password } = data;
+  const existingUser = await getUserByEmail(email);
+  
+  if (!existingUser) {
+    throw new BadRequestError(signInErrors.invalidEmail);
+  }
+  // @ts-ignore
+  if (!existingUser.confirmed) {
+    throw new BadRequestError(signInErrors.notConfirmed);
+  }
+  // @ts-ignore
+  const isValidPassword = await compareEntities(password, existingUser.password);
 
-    if (!isValidPassword) {
-      throw new BadRequestError(signupErrors.invalidCredentials);
-    } 
-    return existingUser; 
+  if (!isValidPassword) {
+    throw new BadRequestError(signInErrors.invalidPassword);
+  } 
+  return existingUser; 
 }

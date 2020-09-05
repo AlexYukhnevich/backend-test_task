@@ -10,8 +10,8 @@ import { CREATED } from 'http-status-codes';
 const { appSecret } = jwtConfig;
 
 export const activateAccount = async (req: Request, res: Response) => {
-  try {
-    const { id: tokenData } = req.query;
+
+    var { id: tokenData } = req.query;
   
     if (tokenData) {  
       const decodedToken = await verify((tokenData as any), appSecret);
@@ -46,7 +46,4 @@ export const activateAccount = async (req: Request, res: Response) => {
     } else {
       throw new InternalError(signupErrors.sso);
     }
-  } catch (message) {
-    throw new InternalError(message);
-  } 
 };
