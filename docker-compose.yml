@@ -1,0 +1,49 @@
+version: '3'
+services: 
+  db:
+    container_name: postgres_container
+    image: postgres:12
+    environment: 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: W0rkW1thSQL
+      POSTGRES_DB: prod_db
+    volumes: 
+      - ./db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always 
+    networks:
+      - postgresql
+  auth:
+    build: "./services/auth"
+    restart: always
+    ports: 
+      - "3000:3000"
+    environment: 
+      JWT_SECRET: test_task
+      JWT_SECRET_REFRESH: token_refresh
+      JWT_EXPIRES_IN: 3600000
+      JWT_REFRESH_EXPIRES_IN: 864000000
+      JWT_ACC_ACTIVATE: activate_account
+      MAIL_NAME: Test Task Notifications
+      MAIL_SECRET: secret-mail
+      SMTP_USERNAME: test.acc0unt.sendmail@gmail.com
+      SMTP_PASSWORD: ~h4r5$3pfvE
+      SMTP_HOST: smtp.gmail.com
+      SMTP_PORT: 587
+  projects:
+    build: "./services/projects"
+    restart: always
+    ports: 
+      - "3001:3001"
+    environment:
+      JWT_SECRET: test_task
+      JWT_SECRET_REFRESH: token_refresh
+      JWT_EXPIRES_IN: 60400000
+      JWT_REFRESH_EXPIRES_IN: 864000000
+  web:
+    image: nginx
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
